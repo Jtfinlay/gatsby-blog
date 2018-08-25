@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'gatsby-link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faRss } from '@fortawesome/free-solid-svg-icons'
+import { faRss } from '@fortawesome/free-solid-svg-icons';
 
 import './header.scss';
 

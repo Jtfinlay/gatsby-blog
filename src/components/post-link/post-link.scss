@@ -1,21 +1,36 @@
 .post-block {
+    padding: 4rem 0;
+    text-align: center;
+
+    border-bottom: 2px solid rgb(206, 201, 196);
 
     a {
         text-decoration: none;
+        transition: all 0.2s ease-in;
     }
 
     .metadata {
-        .date {
+        display: flex;
+        justify-content: center;
 
+        .date {
+            
         }
 
         .tags {
-            
+            color: #f7b733;
+            margin-right: 20px;
+            padding: 0 4px;
+            font-weight: 700;
         }
     }
 
-    .title {
+    .title>h1>a {
+        color: black;
 
+        &:hover {
+            color: #f7b733;
+        }
     }
 
     .date {
@@ -24,5 +39,14 @@
 
     .excerpt {
 
+    }
+
+    .read-more {
+        color: #f7b733;
+        padding-left: 10px;
+
+        &:hover {
+            color: #fc4a1a;
+        }
     }
 }
