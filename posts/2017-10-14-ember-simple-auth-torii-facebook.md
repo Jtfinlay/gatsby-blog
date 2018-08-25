@@ -2,6 +2,7 @@
 path: "/blog/ember-simple-auth-torii"
 date: "2017-10-14"
 title: Ember-simple-auth with torii
+tags: "Ember,Authentication"
 ---
 
 In this post we will be creating a simple Ember application that integrates [ember-simple-auth](https://github.com/simplabs/ember-simple-auth) with [torii](https://github.com/Vestorly/torii) as an authentication service.

@@ -1,7 +1,8 @@
 ---
 path: "/blog/super-rentals-2"
-date: "2017-09-29"
+date: "2017-10-01"
 title: Connecting Express to CosmosDB (Part II)
+tags: "Express"
 ---
 
 Following the last post, we will connect our Express service to the Azure CosmosDB database and point our EmberJS client to use the service.

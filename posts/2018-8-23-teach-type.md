@@ -2,6 +2,7 @@
 path: "/blog/teach-type"
 date: "2018-08-23"
 title: Typing teaching component with React & Redux
+tags: "React"
 ---
 
 Let's empower users to become better typers. We want to provide an interactive experience for users to come in, pick up a typing lesson, and start improving. You could build an entire site around this idea, but for sake of simplicity, we will start with a dynamic component that can react correctly to user inputs.

@@ -1,7 +1,8 @@
 ---
 path: "/blog/oreilly-2018"
 date: "2018-08-22"
-title: O'Reilly Fluent Conference 2018
+title: O'Reilly Fluent Conference 
+tags: "Conference"
 ---
 
 Back in June, I had the opportunity to attend the O'Reilly Fluent Conference in San José, CA. It was a fantastic experience. I met a lot of amazing people and learned a ton. Conferences are an amazing opportunity to break out from your day to day and gain perspective on the industry. The O'Reilly conference was a great experience for this, being a 4-day flash flood of web enthusiasts. 

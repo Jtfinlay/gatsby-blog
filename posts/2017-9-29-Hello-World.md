@@ -1,7 +1,8 @@
 ---
 path: "/blog/hello"
-date: "2017-09-29"
+date: "2017-09-28"
 title: Welcome!
+tags: "Misc"
 ---
 
 Every once in a while, I work on some interesting side project that I want to share. This usually goes down the path of:

@@ -2,6 +2,7 @@
 path: "/blog/csharp-xaml-webview-navigate-timeout"
 date: "2017-10-17"
 title: Webview navigation timeout (C#)
+tags: "Xaml,CSharp"
 ---
 
 This is a quick post on a problem I recently hit working on a C# XAML application. When using a webview to navigate to a website, there is no default retry, timeout, or time tracking attributes available with XAML. Users could hit timeouts of over a minute, and there is no built in tracking to handle these cases.
