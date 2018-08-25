@@ -1,0 +1,56 @@
+.header_block {
+    background: #4abdac;
+    margin-bottom: 1.45rem;
+    border-bottom: 1px solid rgba(252,251,247,.2);
+    padding-left: 15%;
+    padding-right: 15%;
+
+    .header {
+        padding: 1.2rem 0;
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        display: inline;
+        padding: 0 1.1em;
+    }
+
+    .fa {
+        background: rgba(252,251,247,.13);
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        padding: 5px;
+
+        &:hover, &:focus {
+            background: rgba(252,251,247,.3);
+            color: #f7b733;
+        }
+    }
+
+    .navMenuItem {
+        font-size: 16px;
+        font-family: Tahoma,Geneva,sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    a {
+        text-decoration: none;
+        transition: all 0.2s ease-in;
+        color: white;
+
+        &:hover, &:focus {
+            color: #f7b733;
+        }
+    }
+}
+
