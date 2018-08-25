@@ -1,6 +1,7 @@
 module.exports = {
     siteMetadata: {
         title: 'James Finlay - Coder, Cook',
+        author: 'James Finlay'
     },
     plugins: [
         'gatsby-plugin-react-helmet',
@@ -9,16 +10,19 @@ module.exports = {
             resolve: 'gatsby-source-filesystem',
             options: {
                 path: `${__dirname}/posts`,
-                name: "markdown-pages",
+                name: "pages",
             }
         },
         {
             resolve: `gatsby-transformer-remark`,
             options: {
                 plugins: [
-                    `gatsby-remark-prismjs`
+                    `gatsby-remark-prismjs`,
+                    `gatsby-remark-images`
                 ],
             },
-        }
+        },
+        `gatsby-transformer-sharp`,
+        `gatsby-plugin-sharp`,
     ],
 }

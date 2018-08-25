@@ -7,7 +7,7 @@ tags: "React"
 
 Let's empower users to become better typers. We want to provide an interactive experience for users to come in, pick up a typing lesson, and start improving. You could build an entire site around this idea, but for sake of simplicity, we will start with a dynamic component that can react correctly to user inputs.
 
-<img src="{{ site.baseurl }}/images/typer-component/animated-typer.gif" alt="Animation of the typer trainer in action"/>
+![Animation of the typer trainer in action](./animated-typer.gif)
 
 Code is [available here](https://github.com/Jtfinlay/typer-component/tree/blog1).
 
@@ -289,7 +289,7 @@ src/letter/letter.scss
 
 And voila! Our site should build and look like the following.
 
-<img src="{{ site.baseurl }}/images/typer-component/basic-component.PNG" alt="Basic components shown"/>
+![Basic components shown](./basic-component.PNG)
 
 ### Wire up actions
 
@@ -512,6 +512,6 @@ return (
 
 Go check your browser and test it out. Successful letters will be green, and failures in red. Refreshing your page will restart the session.
 
-<img src="{{ site.baseurl }}/images/typer-component/animated-typer.gif" alt="Animation of the typer trainer in action"/>
+![Animation of the typer trainer in action](./animated-typer.gif)
 
 Code is [available here](https://github.com/Jtfinlay/typer-component/tree/blog1).
