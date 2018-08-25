@@ -11,7 +11,7 @@ In this post we'll look at a designing a solution for providing timing, and also
 
 Code for this guide is available on [github](https://github.com/Jtfinlay/webview-navigate-sample).
 
-<img src="{{ site.baseurl }}/images/xaml-navigate/fiddler.PNG" alt="Picture of 'Fiddler' splash"/>
+![Picture of 'Fiddler' splash](./fiddler.PNG)
 
 # Starting off
 
@@ -50,7 +50,7 @@ Let's perform the navigation again, but this time have Fiddler sniffing the call
 
 Note: Fiddler also has a 'Clear Cache' button on the top toolbar, but I find that Disk Cleanup catches more.
 
-<img src="{{ site.baseurl }}/images/xaml-navigate/fiddler-settings.PNG" alt="Picture of Fiddler HTTPS settings"/>
+![Picture of Fiddler HTTPS settings](./fiddler-settings.PNG)
 
 When launching the app and navigating to the page, you should see a capture for host `jtfinlay.github.io` to URL `/`, as well as some additional calls to load css and google-analytics. The first thing we want to see is what happens when the user load times out - how does XAML react? To do this, we can intercept the navigation call in Fiddler, and delay it.
 
@@ -60,7 +60,7 @@ In Fiddler, on the right panel, you will find a tab for the Autoresponder. This 
 
 Press 'Save' in the Rule Editor. At the top of the view, select the 'Unmatched requests passthrough' option (or you'll block all unmatched traffic), and the option to 'Enable rules'
 
-<img src="{{ site.baseurl }}/images/xaml-navigate/fiddler-autoresponder.PNG" alt="Picture of Fiddler auto-responder settings"/>
+![Picture of Fiddler auto-responder settings](./fiddler-autoresponder.PNG)
 
 Run disk cleanup and deploy once more. You'll find, while waiting 500 seconds, that the XAML webview navigation will never... time... out... It is controlled entirely by the amount of time it takes for the call to complete.
 
@@ -76,49 +76,51 @@ To keep the code reusable, we will split it apart from the MainPage into a separ
 
 Let's create a class called `WebviewNavigator`. Not the prettiest name, but it's to the point and doesn't have the overused terms `Manager` or `Helper`. We'll define some constants and methods to expect. There are a few different Webview.Navigate(...) methods available to us, but we'll just be using `Uri` and `HttpRequestMessage` for now.
 
-    // WebviewNavigator.cs
+```c
+// WebviewNavigator.cs
 
-    using System;
-    using Windows.UI.Xaml.Controls;
+using System;
+using Windows.UI.Xaml.Controls;
 
-    namespace WebviewNavigateTest
+namespace WebviewNavigateTest
+{
+    public class WebviewNavigator
     {
-        public class WebviewNavigator
+        /// <summary>
+        /// The maximum number of attempts to try a navigation.
+        /// </summary>
+        private const int MAX_RETRY_COUNT = 3;
+
+        /// <summary>
+        /// The maximum time allowed to perform a navigation.
+        /// </summary>
+        private const int MAX_TIMEOUT_MS = 30000;
+
+        /// <summary>
+        /// Access to the wrapped webview instance
+        /// </summary>
+        private readonly WebView _webView;
+
+        public WebviewNavigator(WebView webView)
         {
-            /// <summary>
-            /// The maximum number of attempts to try a navigation.
-            /// </summary>
-            private const int MAX_RETRY_COUNT = 3;
+            _webView = webView;
+            _webView.NavigationCompleted += OnNavigationCompleted;
+        }
 
-            /// <summary>
-            /// The maximum time allowed to perform a navigation.
-            /// </summary>
-            private const int MAX_TIMEOUT_MS = 30000;
+        public void Navigate(Uri source)
+        {
+        }
 
-            /// <summary>
-            /// Access to the wrapped webview instance
-            /// </summary>
-            private readonly WebView _webView;
+        public void NavigateWithHttpRequestMessage(HttpRequestMessage requestMessage)
+        {
+        }
 
-            public WebviewNavigator(WebView webView)
-            {
-                _webView = webView;
-                _webView.NavigationCompleted += OnNavigationCompleted;
-            }
-
-            public void Navigate(Uri source)
-            {
-            }
-
-            public void NavigateWithHttpRequestMessage(HttpRequestMessage requestMessage)
-            {
-            }
-
-            private void OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-            {
-            }
+        private void OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
         }
     }
+}
+```
 
 We need two different timing mechanisms. First, we want to track how long each navigation request takes. Second, we want to be alerted when we hit the timeout so we can cancel the ongoing navigation. 
 
@@ -128,53 +130,55 @@ For the second timer needed, we could have a loop that checks whether the timer 
 
 We will create an instance of `Stopwatch`
 
-    using System;
-    using System.Diagnostics;
-    using Windows.UI.Xaml;
-    using Windows.UI.Xaml.Controls;
-    using Windows.Web.Http;
+```c
+using System;
+using System.Diagnostics;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.Web.Http;
 
-    namespace WebviewNavigateTest
+namespace WebviewNavigateTest
+{
+    public class WebviewNavigator
     {
-        public class WebviewNavigator
+        /// <summary>
+        /// The maximum number of attempts to try a navigation.
+        /// </summary>
+        private const int MAX_RETRY_COUNT = 3;
+
+        /// <summary>
+        /// The maximum time allowed to perform a navigation.
+        /// </summary>
+        private const int MAX_TIMEOUT_MS = 30000;
+
+        /// <summary>
+        /// Access to the wrapped webview instance
+        /// </summary>
+        private readonly WebView _webView;
+
+        private readonly Stopwatch _stopwatch = new Stopwatch();
+
+        private readonly DispatcherTimer _countdownTimer = new DispatcherTimer()
         {
-            /// <summary>
-            /// The maximum number of attempts to try a navigation.
-            /// </summary>
-            private const int MAX_RETRY_COUNT = 3;
+            Interval = new TimeSpan(0, 0, 0, 0, MAX_TIMEOUT_MS)
+        };
 
-            /// <summary>
-            /// The maximum time allowed to perform a navigation.
-            /// </summary>
-            private const int MAX_TIMEOUT_MS = 30000;
+        public WebviewNavigator(WebView webView)
+        {
+            _webView = webView;
+            _webView.NavigationCompleted += OnNavigationCompleted;
 
-            /// <summary>
-            /// Access to the wrapped webview instance
-            /// </summary>
-            private readonly WebView _webView;
+            _countdownTimer.Tick += OnTimeoutElapsed;
+        }
 
-            private readonly Stopwatch _stopwatch = new Stopwatch();
+        ...
 
-            private readonly DispatcherTimer _countdownTimer = new DispatcherTimer()
-            {
-                Interval = new TimeSpan(0, 0, 0, 0, MAX_TIMEOUT_MS)
-            };
-
-            public WebviewNavigator(WebView webView)
-            {
-                _webView = webView;
-                _webView.NavigationCompleted += OnNavigationCompleted;
-
-                _countdownTimer.Tick += OnTimeoutElapsed;
-            }
-
-            ...
-
-            private void OnTimeoutElapsed(object sender, object e)
-            {
-            }
+        private void OnTimeoutElapsed(object sender, object e)
+        {
         }
     }
+}
+```
 
 Great, things are initialized. There is one more piece we need to think through however - the *retry*. We are not always navigating to a `Uri`, but we could be using a `HttpRequestMessage`, or any other navigation types as well. We need a way to generalize the method call so we can recall it in case of failure. Using an [`Action delegate`](https://msdn.microsoft.com/en-us/library/018hxwa8(v=vs.110).aspx) will help us with this.
 

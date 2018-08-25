@@ -7,9 +7,9 @@ tags: "Express,Azure"
 
 Following the last post, we will connect our Express service to the Azure CosmosDB database and point our EmberJS client to use the service.
 
-Related: [Part 1]({{ site.baseurl }}/Super-Rentals/)
+Related: [Part 1](./Super-Rentals/)
 
-From the [first post]({{ site.baseurl }}/Super-Rentals/), we should have a working client, an Azure Cosmos DB service, and a basic Express app with the /api/rentals API defined. Our big picture is to have the EmberJS client calling our Express "front door," which queries the database for our desired data. 
+From the [first post](./Super-Rentals/), we should have a working client, an Azure Cosmos DB service, and a basic Express app with the /api/rentals API defined. Our big picture is to have the EmberJS client calling our Express "front door," which queries the database for our desired data. 
 
 We left off with the Ember app receiving mock data from controller of the Express service. The next step is to remove the mock data and to query data directly from the database.
 
@@ -32,7 +32,7 @@ Let's create the file api/helpers/azureConfig.js
 
 Navigate to the the azure portal and the CosmosDB service we created. Pull out the host URI and the primary key values, then update the azureConfig.js with your values.
 
-<img src="{{ site.baseurl }}/images/super-rentals-keys.PNG" alt="Access keys from settings"/>
+![Access keys from settings](./super-rentals-keys.PNG)
 
 Don't check the secret key into git, especially if it is going to be public. With the key, anyone could access your database! If you make a mistake and it does become public, you can refresh to a new key through the portal. After check in, even if you were to remove it in a future commit, it will stay in your history, so be very careful when interacting with your keys.
 
@@ -272,7 +272,7 @@ Try loading your EmberJS app. Any errors will come up in the console. When every
 
 If you aren't sure whether the call is hitting mirage or not, an easy test is to use your favorite network sniffer (like Fiddler) and check for the network call.
 
-<img src="{{ site.baseurl }}/images/super-rentals-fiddler-localhost.PNG" alt="Fiddler sniffle example"/>
+![Fiddler sniffle example](./super-rentals-fiddler-localhost.PNG)
 
 ## Next time
 

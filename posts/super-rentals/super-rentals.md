@@ -7,7 +7,7 @@ tags: "Ember,Express"
 
 The goal with this guide is to expand the existing [EmberJS 'super-rentals' tutorial](https://guides.emberjs.com/v2.14.0/tutorial/ember-cli/) to query data against an Azure Services backend. I hope this tutorial helps others figure out the next steps in getting their application out on the web. In this section, we will set up an Azure CosmosDB (DocumentDB) database, and create an Express service with Swagger integration.
 
-Related: [Part 2]({{ site.baseurl }}/Super-Rentals-2/)
+Related: [Part 2](./Super-Rentals-2/)
 
 From the EmberJS super-rentals tutorial, you should be left off with a working Ember application that uses mirage to return mock data. We'll use this same data in an [Azure CosmosDb (DocumentDb) NoSQL database](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction), and access it using a separate web service running [Express](https://expressjs.com/) (setup with [Swagger](https://swagger.io/)). We'll dive deeper into the rationale behind the separate service later.
 
@@ -22,7 +22,7 @@ From the EmberJS super-rentals tutorial, you should be left off with a working E
 
 In case you need it, code from the super-rentals tutorial can be forked from [this repo](https://github.com/Jtfinlay/super-rentals). Before we start, ensure the client builds and is running on http://localhost:4200/rentals. 
 
-<img src="{{ site.baseurl }}/images/super-rentals.PNG" alt="SuperRentals ember app"/>
+![SuperRentals ember app](./super-rentals.PNG)
 
 The EmberJS tutorial left us in a really good state to jump right into setting up our service. Our index page loads the rental models dynamically, so we can easily add to our data without any client changes. A basic JSONAPI adapter exists in *app/adapters/application.js*, which makes all traffic requests go to http://localhost:4200/api/rentals (when mirage isn't intercepting). 
 
@@ -87,7 +87,7 @@ Go ahead and create yours. I'll wait here.
 
 Great job! Now that we have our database service, add the mock data. From "Data Explorer", expand the Items collection and select 'Documents'. In the new pane, we can choose to add 'New Document' and paste in our JS Object. Do this one-by-one for the three rental options.
 
-<img src="{{ site.baseurl }}/images/super-rentals-addDocuments.PNG" alt="Azure add document to db"/>
+![Azure add document to db](./super-rentals-addDocuments.PNG)
 
 ### Secret keys
 
@@ -153,7 +153,7 @@ In a separate command window, launch the [Swagger Editor](http://editor.swagger.
 
 Your browser should open the Swagger editor!
 
-<img src="{{ site.baseurl }}/images/swagger_editor.PNG" alt="Swagger editor"/>
+![Swagger editor](./swagger_editor.PNG)
 
 If at any point you get unexplainable warnings or weird problems, try refreshing the page. The editor does sometimes get stuck.
 
@@ -163,7 +163,7 @@ There is already a *GET /hello* path defined, which we can see takes an optional
 
 Find the 'Try this operation' button and play with the results.
 
-<img src="{{ site.baseurl }}/images/swagger_editor_response.PNG" alt="Swagger editor try this operation response"/>
+![Swagger editor try this operation response](./swagger_editor_response.PNG)
 
 Since the server is running locally, we could also use `curl` or our browser to see what we get returned.
 
