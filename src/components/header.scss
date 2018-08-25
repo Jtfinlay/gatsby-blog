@@ -30,7 +30,7 @@
         height: 32px;
         padding: 5px;
 
-        &:hover, &:focus {
+        &:hover {
             background: rgba(252,251,247,.3);
             color: #f7b733;
         }
@@ -48,7 +48,7 @@
         transition: all 0.2s ease-in;
         color: white;
 
-        &:hover, &:focus {
+        &:hover {
             color: #f7b733;
         }
     }
