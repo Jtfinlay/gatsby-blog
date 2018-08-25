@@ -1,0 +1,16 @@
+.blog-post-container {
+    .date {
+        font-weight: normal;
+        font-size: 1em;
+    }
+
+    a {
+        transition: all 0.2s ease-in;
+        color: #4abdac;
+        text-decoration: none;
+
+        &:hover {
+            color: #f7b733;
+        }
+    }
+}

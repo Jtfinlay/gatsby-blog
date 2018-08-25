@@ -1,17 +1,19 @@
-import React from "react";
+import React from 'react';
+
+import './blogTemplate.scss';
 
 export default function Template({
-    data, // this prop will be injected by the GraphQL query below.
+    data
   }) {
-    const { markdownRemark } = data; // data.markdownRemark holds our post data
+    const { markdownRemark } = data;
     const { frontmatter, html } = markdownRemark;
     return (
-      <div className="blog-post-container">
-        <div className="blog-post">
+      <div className='blog-post-container'>
+        <div className='blog-post'>
           <h1>{ frontmatter.title }</h1>
-          <h2>{ frontmatter.date }</h2>
+          <h3 className='date'>{ frontmatter.date }</h3>
           <div
-            className="blog-post-content"
+            className='blog-post-content'
             dangerouslySetInnerHTML={{ __html: html }}
           />
         </div>
@@ -27,6 +29,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         path
+        tags
       }
     }
   }
