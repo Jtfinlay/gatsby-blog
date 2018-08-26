@@ -2,8 +2,6 @@ import React from 'react';
 import PostLink from "../components/post-link";
 import Img from 'gatsby-image';
 
-import './index.scss';
-
 const IndexPage = ({
     data
 }) => {
