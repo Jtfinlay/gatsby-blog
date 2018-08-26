@@ -1,12 +1,21 @@
 import React from 'react';
+import Disqus from 'disqus-react';
 
 import './blogTemplate.scss';
 
 export default function Template({
     data
-  }) {
+}) {
     const { markdownRemark } = data;
     const { frontmatter, html } = markdownRemark;
+
+    const disqusShortname = 'example';
+    const disqusConfig = {
+        url: frontmatter.path,
+        identifier: markdownRemark.id,
+        title: frontmatter.title,
+    };
+
     return (
       <div className='blog-post-container'>
         <div className='blog-post'>
@@ -16,21 +25,23 @@ export default function Template({
             className='blog-post-content'
             dangerouslySetInnerHTML={{ __html: html }}
           />
+          <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
         </div>
       </div>
     );
   }
 
 export const pageQuery = graphql`
-  query BlogPostByPath($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        path
-        tags
-      }
+    query BlogPostByPath($path: String!) {
+        markdownRemark(frontmatter: { path: { eq: $path } }) {
+            id
+            html
+            frontmatter {
+                title
+                date(formatString: "MMMM DD, YYYY")
+                path
+                tags
+            }
+        }
     }
-  }
 `;
