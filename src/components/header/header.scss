@@ -33,6 +33,11 @@
             background: rgba(252,251,247,.3);
             color: #f7b733;
         }
+
+        svg {
+            max-width: 1em;
+            max-height: 1em;
+        }
     }
 
     .navMenuItem {
