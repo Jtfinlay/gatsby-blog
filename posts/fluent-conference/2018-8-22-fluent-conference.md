@@ -25,7 +25,7 @@ The technologies I spoke to most people about involved:
 - Redux and MobX
 - WebAssembly
 
-<img src="{{ site.baseurl }}/images/fluent-conference/react.jpg" alt="React is so hot right now"/>
+![React is so hot right now](./react.jpg)
 
 (React is so hot right now)
 
@@ -47,7 +47,7 @@ I was thinking about our conversation throughout the conference. Accessibility i
 
 [Scott Davis](https://twitter.com/scottdavis99) (Thoughtworks) delivered a high energy keynote about accessibility where he showed high praise for how Microsoft has become a leader in this area. He jokingly pointed to the Microsoft accessibility website, yelling "Who is this new Microsoft!? This isn't the Microsoft we once knew!".
 
-<img src="{{ site.baseurl }}/images/fluent-conference/scott_davis.jpg" alt="Scott Davis presenting"/>
+![Scott Davis presenting](./scott_davis.jpg)
 
 I spoke to another engineer who works at a company completely tied in to Microsoft services - they develop on Windows, they host on Azure, and they use all Microsoft tooling.
 Yet even with the close ties, they are having a difficult time defining what is needed for
