@@ -1,14 +1,12 @@
 .header_block {
     background: #4abdac;
     border-bottom: 1px solid rgba(252,251,247,.2);
-    padding-left: 15%;
-    padding-right: 15%;
 
     .header {
-        padding: 1.2rem 0;
-
         display: flex;
         justify-content: space-between;
+        
+        padding: 1.2rem 0;
     }
 
     ul {
@@ -19,7 +17,7 @@
 
     li {
         display: inline;
-        padding: 0 1.1em;
+        padding: 0 0.8em;
     }
 
     .fa {
@@ -58,3 +56,9 @@
     }
 }
 
+@media screen and (min-width: 750px) {
+    .header_block {
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+}
