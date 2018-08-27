@@ -3,6 +3,7 @@ import Link from 'gatsby-link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faRss } from '@fortawesome/free-solid-svg-icons';
+import { OutboundLink } from 'gatsby-plugin-google-analytics';
 
 import './header.scss';
 
@@ -19,24 +20,24 @@ const Header = () => (
             </ul>
             <ul className='socialIcons'>
                 <li className='socialIcon_link'>
-                    <a href='https://twitter.com/JtFinlay' className='fa twitter'>
+                    <OutboundLink href='https://twitter.com/JtFinlay' className='fa twitter'>
                         <FontAwesomeIcon icon={faTwitter} />
-                    </a>
+                    </OutboundLink>
                 </li>
                 <li className='socialIcon_link'>
-                    <a href='https://github.com/Jtfinlay' className='fa github'>
+                    <OutboundLink href='https://github.com/Jtfinlay' className='fa github'>
                         <FontAwesomeIcon icon={faGithub} />
-                    </a>
+                    </OutboundLink>
                 </li>
                 <li className='socialIcon_link'>
-                    <a href='https://www.linkedin.com/in/james-finlay-b204a731/' className='fa linkedin'>
+                    <OutboundLink href='https://www.linkedin.com/in/james-finlay-b204a731/' className='fa linkedin'>
                         <FontAwesomeIcon icon={faLinkedin} />
-                    </a>
+                    </OutboundLink>
                 </li>
                 <li className='socialIcon_link'>
-                    <a href='http://feeds.feedburner.com/jtfinlay' className='fa rss'>
+                    <OutboundLink href='http://feeds.feedburner.com/jtfinlay' className='fa rss'>
                         <FontAwesomeIcon icon={faRss} />
-                    </a>
+                    </OutboundLink>
                 </li>
             </ul>
         </div>

@@ -4,6 +4,15 @@ module.exports = {
         author: 'James Finlay'
     },
     plugins: [
+        {
+            resolve: `gatsby-plugin-google-analytics`,
+            options: {
+                trackingId: "UA-108088936-2",
+                head: false,
+                anonymize: true,
+                respectDNT: true
+            },
+        },
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-sass',
         {
