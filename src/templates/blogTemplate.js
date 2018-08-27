@@ -9,7 +9,7 @@ export default function Template({
     const { markdownRemark } = data;
     const { frontmatter, html } = markdownRemark;
 
-    const disqusShortname = 'blog-n0emuz62z4';
+    const disqusShortname = 'blog-jtfinlay';
     const disqusConfig = {
         url: frontmatter.path,
         identifier: markdownRemark.id,
