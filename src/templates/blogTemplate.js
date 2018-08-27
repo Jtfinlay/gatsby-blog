@@ -11,7 +11,6 @@ export default function Template({
 
     const disqusShortname = 'blog-jtfinlay';
     const disqusConfig = {
-        url: frontmatter.path,
         identifier: markdownRemark.id,
         title: frontmatter.title,
     };
