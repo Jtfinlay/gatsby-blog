@@ -22,11 +22,10 @@ cd electron-react
 
 ## Add electron
 
-Add `electron` to our dependencies, and `electron-builder` as a dev dependency.
+Add `electron` and `electron-builder` as dev dependencies.
 
 ```javascript
-yarn add electron
-yarn add electron-builder -D
+yarn add electron electron-builder -D
 ```
 
 ## Developer environment
@@ -129,7 +128,6 @@ Since we don't actually need the existing `yarn start` script, which just invoke
   "private": false,
   "main": "public/electron.js",
   "dependencies": {
-    "electron": "^2.0.8",
     "electron-is-dev": "^0.3.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -143,6 +141,7 @@ Since we don't actually need the existing `yarn start` script, which just invoke
   },
   "devDependencies": {
     "concurrently": "^4.0.1",
+    "electron": "^2.0.8",
     "electron-builder": "^20.28.4",
     "wait-on": "^3.0.1"
   }
@@ -153,4 +152,83 @@ Boom! Development environment for electron with hot reload is live.
 
 ## Production environment
 
-Production was a bit trickier to figure out, but here we go.
+Production was a bit trickier to figure out, but *allons-y*.
+
+Many guides and threads end up pulling in references to the src/ and node_modules/ directory which isn't right (at least in our case). Webpack is doing a bunch of work for us to generate a minified build/ directory. That directory should be all we need to pull in to electron!
+
+We need to define our electron-build configuration. It sits on the top level of our package.json under the `build` key. 
+
+While we are here, we can add a `dist` script that will perform the build.
+
+package.json
+```javascript
+    "main": "public/electron.js",
+    "build": {
+        "appId": "com.electron.test",
+        "files": [
+            "build/**/*"
+        ]
+    },
+    "scripts": {
+        ...
+        "dist": "yarn build && electron-builder"
+    }
+```
+By default, electron-builder will generate a distribution for our current platform. If we go and check out the /dist folder after building on Windows, we should find an `'electron-react Setup 0.1.0.exe'` file. Let's run it to launch our electron app.
+
+```javascript
+yarn dist
+```
+
+![Screenshot of ERR_FILE_NOT_FOUND error on deployment](./err_file_not_found.PNG)
+
+We are hitting ERR_FILE_NOT_FOUND errors for the generated .css and .js files. If we check the 'sources' tab we can see that the index.html file is loading, which is a good start.
+
+Hovering over the console errors reveals that electron is trying to load the included files from an absolute path - in my case `file:////C:/static/css/main.c17080f1.css` - instead of the relative path. To fix this, we need to make another edit in our package.json to tell create-react-app to [build for relative paths](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#building-for-relative-paths).
+
+package.json
+```javascript
+    "homepage": "./",
+```
+
+Running `yarn dist` will regenerate the .exe and everything will be running correctly.
+
+![Screenshot of create-react-app running in electron](./end-result.PNG)
+
+Our final package.json file came out to,
+
+```javascript
+{
+  "name": "electron-react",
+  "version": "0.1.0",
+  "private": false,
+  "main": "public/electron.js",
+  "homepage": "./",
+  "build": {
+    "appId": "com.electron.test",
+    "files": [
+      "build/**/*"
+    ]
+  },
+  "dependencies": {
+    "electron-is-dev": "^0.3.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "start": "concurrently \"cross-env BROWSER=none react-scripts start\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "dist": "yarn build && electron-builder"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "cross-env": "^5.2.0",
+    "electron": "^2.0.8",
+    "electron-builder": "^20.28.4",
+    "wait-on": "^3.0.1"
+  }
+}
+```
