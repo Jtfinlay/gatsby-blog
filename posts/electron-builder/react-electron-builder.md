@@ -1,6 +1,6 @@
 ---
 path: "/blog/react-electron-builder"
-date: "2017-10-14"
+date: "2018-09-06"
 title: Electron builder from create-react-app
 tags: "React,Electron"
 ---
@@ -32,13 +32,13 @@ yarn add electron electron-builder -D
 
 For our developer environment, we expect changes to be fast and to have support for hot reload. To accomplish this with electron, we are going to run our regular node service through `yarn start`, and concurrently serve it through our electron app.
 
-First, we can leverage the `electron-is-dev` package to distinguish which dev from prod.
+First, we can leverage the `electron-is-dev` package to distinguish dev from prod.
 
 ```javascript
 yarn add electron-is-dev
 ```
 
-To actual get our electron application to start, we begin with a copy from [electron-webpack-quick-start](https://github.com/electron-userland/electron-webpack-quick-start/blob/master/src/main/index.js). We are creating a new `electron.js` file in the public directory.
+Then we can use it in our electron start up script which will setup the world. Code is below, which is a lightly modified version from [electron-webpack-quick-start](https://github.com/electron-userland/electron-webpack-quick-start/blob/master/src/main/index.js). We are creating a new `electron.js` file in the public directory.
 
 public/electron.js
 ```javascript
@@ -76,7 +76,7 @@ app.on('activate', () => {
 
 If we are in the development environment then electron will load `http://localhost:3000`, which is our node hot reload environment (from `yarn start`). Otherwise, we try to load `../build/index.html` which is the production build.
 
-Now we can modify our `package.json` configuration to point to this file, and define our build scripts. Start with the following field, which points electron to initiate with the `electron.js` starter script we added.
+Now we can modify our `package.json` configuration to define our build script and to tell electron to start with this file. Start with the following field, which points electron to initiate with the `electron.js` starter script we added.
 
 package.json
 ```javascript
@@ -154,7 +154,7 @@ Boom! Development environment for electron with hot reload is live.
 
 Production was a bit trickier to figure out, but *allons-y*.
 
-Many guides and threads end up pulling in references to the src/ and node_modules/ directory which isn't right (at least in our case). Webpack is doing a bunch of work for us to generate a minified build/ directory. That directory should be all we need to pull in to electron!
+Many guides and threads end up pulling in references to the src/ and node_modules/ directory which isn't right (at least in our case). Webpack is doing a bunch of work for us to generate a minified build directory. That directory should be all we need to pull in to electron!
 
 We need to define our electron-build configuration. It sits on the top level of our package.json under the `build` key. 
 
@@ -182,7 +182,7 @@ yarn dist
 
 ![Screenshot of ERR_FILE_NOT_FOUND error on deployment](./err_file_not_found.PNG)
 
-We are hitting ERR_FILE_NOT_FOUND errors for the generated .css and .js files. If we check the 'sources' tab we can see that the index.html file is loading, which is a good start.
+We are hitting ERR\_FILE\_NOT\_FOUND errors for the generated .css and .js files. If we check the 'sources' tab we can see that the index.html file is loading, which is good, but other imports are failing.
 
 Hovering over the console errors reveals that electron is trying to load the included files from an absolute path - in my case `file:////C:/static/css/main.c17080f1.css` - instead of the relative path. To fix this, we need to make another edit in our package.json to tell create-react-app to [build for relative paths](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#building-for-relative-paths).
 
