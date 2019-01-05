@@ -35,8 +35,8 @@ export const pageQuery = graphql`
             }
         }
     }
-    spotlightImage: imageSharp(id: { regex: "/sf_bridge.png/" }) {
-        sizes(maxHeight: 350, cropFocus: CENTER) {
+    spotlightImage: imageSharp(id: { regex: "/portrait_landscape.jpg/" }) {
+        sizes(maxHeight: 350, cropFocus: ENTROPY) {
             ...GatsbyImageSharpSizes
         }
     }

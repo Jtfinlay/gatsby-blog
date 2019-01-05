@@ -1,13 +1,11 @@
 ---
 path: "/blog/react-electron-builder"
-date: "2018-09-06"
+date: "2019-01-04"
 title: Electron builder from create-react-app
 tags: "React,Electron"
 ---
 
-[Electron](https://electronjs.org/) is a great modern solution for building cross-platform desktops apps with HTML, Javascript, and CSS. Visual Studio Code, Teams, Slack, and many other popular software applications use electron as part of their toolkit.
-
-I found few resources online that provided a useful way to integrate [electron-builder](https://www.electron.build/) with an existing application, such as from [create-react-app](https://github.com/facebook/create-react-app). Hopefully this will help remedy questions as I pieced together different errors and github threads.
+[Electron](https://electronjs.org/) is a great modern solution for building cross-platform desktops apps with Javascript, and CSS. Visual Studio Code, Teams, Slack, and many other popular software applications use electron as part of their toolkit. I found few resources online that provided a useful way to integrate [electron-builder](https://www.electron.build/) with an existing application, such as from [create-react-app](https://github.com/facebook/create-react-app). I hope this guide will help bridge these great resources.
 
 ![Screenshot of create-react-app running in electron](./end-result.PNG)
 
@@ -74,9 +72,9 @@ app.on('activate', () => {
 });
 ```
 
-If we are in the development environment then electron will load `http://localhost:3000`, which is our node hot reload environment (from `yarn start`). Otherwise, we try to load `../build/index.html` which is the production build.
+Above we use the `electron-is-dev` package to switch between the dev and prod environment. In dev mode, we point to the hot reload environment (`http://localhost:3000`) that is triggered by `yarn start`. To test production, we point tod `../build/index.html` which is the production build.
 
-Now we can modify our `package.json` configuration to define our build script and to tell electron to start with this file. Start with the following field, which points electron to initiate with the `electron.js` starter script we added.
+To load our above code, we modify our `package.json` configuration to define our build script. Start with the following field, which points electron to initiate with the `electron.js` starter script we added.
 
 package.json
 ```javascript
