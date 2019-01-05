@@ -2,7 +2,7 @@
 path: "/blog/react-electron-builder"
 date: "2019-01-04"
 title: Electron builder from create-react-app
-tags: "React,Electron"
+tags: "React, Electron"
 ---
 
 [Electron](https://electronjs.org/) is a great modern solution for building cross-platform desktops apps with Javascript, and CSS. Visual Studio Code, Teams, Slack, and many other popular software applications use electron as part of their toolkit. I found few resources online that provided a useful way to integrate [electron-builder](https://www.electron.build/) with an existing application, such as from [create-react-app](https://github.com/facebook/create-react-app). I hope this guide will help bridge these great resources.

@@ -2,7 +2,7 @@
 path: "/blog/super-rentals"
 date: "2017-09-30"
 title: "Ember, Express, & CosmosDB (Part I)"
-tags: "Ember,Express"
+tags: "Ember, Express"
 ---
 
 The goal with this guide is to expand the existing [EmberJS 'super-rentals' tutorial](https://guides.emberjs.com/v2.14.0/tutorial/ember-cli/) to query data against an Azure Services backend. I hope this tutorial helps others figure out the next steps in getting their application out on the web. In this section, we will set up an Azure CosmosDB (DocumentDB) database, and create an Express service with Swagger integration.
