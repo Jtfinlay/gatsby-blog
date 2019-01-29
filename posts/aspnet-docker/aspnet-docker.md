@@ -8,9 +8,12 @@ tags: "ASP.NET Core, Docker, Windows"
 Whether starting with a new project or publishing an existing, integrating your ASP.NET Core project with Docker is a powerful way to manage and ship your programs. It's straight forward to achieve with Visual Studio, and this guide is to help add this support.
 
 You'll learn to:
-    ✔ Create an ASP.NET Core API Service
-    ✔ Setup Docker for Windows
-    ✔ Enable Docker support for your service
+
+✔ Create an ASP.NET Core API Service
+
+✔ Setup Docker for Windows
+
+✔ Enable Docker support for your service
 
 Using Visual Studio Installer (with VS2017), ensure you have the following options installed:
  - ASP.NET and web development
@@ -22,7 +25,7 @@ These options can be accessed through the 'Modify option' of the Visual Studio I
 
 ![Visual Studio Installer 'modify' option](./installer-modify.PNG)
 
-Before we create or update our project, another required tool is [Docker for Windows](https://docs.docker.com/docker-for-windows/?install_site=vsonwin). Install it following their guidance, which today points to [Docker Hub](https://hub.docker.com/editions/community/docker-ce-desktop-windows).
+Before we create or update our project, another required tool is [Docker for Windows](https://docs.docker.com/docker-for-windows/?install_site=vsonwin). Install it following the guidance on the Docker for Windows site, which today points to [Docker Hub](https://hub.docker.com/editions/community/docker-ce-desktop-windows).
 
 During installation, we will configure Docker to use Windows containers instead of Linux. ASP.NET Core projects are cross-platform, so we can configure our project to run on either OS. It is simple to switch between Windows containers and Linux containers - we just need to access this option through the Docker settings once it has launched.
 
@@ -30,11 +33,11 @@ During installation, we will configure Docker to use Windows containers instead 
 
 ![Switch between Windows Containers and Linux Containers](./switch-containers.PNG)
 
-Launch Docker For Windows. This will take a minute or two, you can see the progress by the animating icon on your toolbar. Once it's complete, it will launch a login window.
+Launch Docker For Windows from the start menu. This will take a minute or two, and you can see the progress by the animating icon on your toolbar. Once it's complete, it will launch a login window.
 
-Register for an account if you do not have one yet, you will likely need it later. Something to note is that Docker login differentiates your *email address* and *docker id* as separate values using the same password. Your email address is used your website login, and your docker id for managing docker.
+Register for an account if needed and sign in. An important note when working with Docker is to pay attention to whether you need to sign in with your *email address* or *docker id*. They both use the same password. Your email address is used your website login, and your docker id for pretty much everything else. This can cause some confusion where login with email often authenticates successfully but causes problems afterwards.
 
-In my case, Docker launched for Linux Containers, so I switched to Windows Containers modes. You will be given a warning regarding not being able to manage existing Linux containers, which is expected.
+In my case, Docker launched for Linux containers, so I switched to Windows containers modes. You will be given a warning regarding not being able to manage existing Linux containers, which is expected. Select 'switch' in this case.
 
 ![Switch warning from Docker when changing container mode](./switch-warning.PNG)
 
@@ -42,7 +45,7 @@ In my case, Docker launched for Linux Containers, so I switched to Windows Conta
 
 Launch Visual Studio, and go to create a new ASP.NET Core Web Application. Check 'Enable Docker Support', verify the dropdown for Windows, and select your service of choice (in my case, an API service).
 
-![Creating a new ASP.NET Core](./switch-warning.PNG)
+![Creating a new ASP.NET Core](./new-aspnet-project.PNG)
 
 Once created, tap F5 to build & run your project.
 
@@ -51,3 +54,5 @@ Once created, tap F5 to build & run your project.
 For an existing ASP.NET Core project, including docker support is straight forward as well. Right-click on your project > Add > Docker Support.
 
 ![Add docker support to an existing project](./add-docker-support.PNG)
+
+In the next post, we will take a look at what was included in the project when adding Docker support, and what it means.
