@@ -55,4 +55,4 @@ For an existing ASP.NET Core project, including docker support is straight forwa
 
 ![Add docker support to an existing project](./add-docker-support.PNG)
 
-In the next post, we will take a look at what was included in the project when adding Docker support, and what it means.
+In the next post, we will take a look at what the changes that occur when adding Docker Support. Specifically, [A look at the ASP.NET Core Dockerfile](./asp-net-core-dockerfile/).
