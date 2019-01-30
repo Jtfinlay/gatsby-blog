@@ -5,13 +5,7 @@ title: A look at the ASP.NET Core Dockerfile
 tags: "ASP.NET Core, Docker, Windows"
 ---
 
-I wrote a previous article that explains how to [Add Docker Support to your ASP.NET service](./asp-net-core-docker/). This article is a continuation, to look at what happened when we enabled Docker support. We will take a look at:
-
-✔ How Dockerfile is configured with Visual Studio
-
-✔ LaunchSettings
-
-✔ Project changes (UserSecretsId)
+I wrote a previous article that explains how to [Add Docker Support to your ASP.NET service](./asp-net-core-docker/). This article is a continuation, to look at what happened when we enabled Docker support. We will take a look at how the Dockerfile is configured by Visual Studio.
 
 ## Dockerfile
 
