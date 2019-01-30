@@ -9,7 +9,7 @@ I wrote a previous article that explains how to [Add Docker Support to your ASP.
 
 ## Dockerfile
 
-The [DockerFile](https://docs.docker.com/engine/reference/builder/) contains instructions for assembling an image. The file is generated automatically when we add Docker support, but can be alternatively be prepared and modified by hand. The Dockerfile extends two image variants, *runtime* and *sdk*, which are hosted by Microsoft under `microsoft/dotnet`.
+The [DockerFile](https://docs.docker.com/engine/reference/builder/) contains instructions for assembling an image. The file is generated automatically when we add Docker support, but can instead be prepared and modified by hand. The Dockerfile extends two image variants, *runtime* and *sdk*, which are hosted by Microsoft under `microsoft/dotnet`.
 
 ```
     FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1803 AS base
@@ -20,7 +20,7 @@ The [DockerFile](https://docs.docker.com/engine/reference/builder/) contains ins
 
 The **runtime** image is slim, containing the .NET Core runtime and libraries. It is optimized to run well in **production** environments.
 
-The **sdk** image contains the .NET Core sdk and can be used for development, unit tests, and debugging. It can be used for build. It's more extensive than the runtime image, and is best for **development** environments.
+The **sdk** image contains the .NET Core sdk and can be used for development, unit tests, and debugging. It's more extensive than the runtime image, and is best for **development** environments.
 
 ## Docker Build (Development)
 
@@ -36,13 +36,13 @@ As an aside, clear documentation is missing, but this MSBuild command can be con
         </PropertyGroup>
     </Project>
 
-Breaking down the original command (through the [Docker docs](https://docs.docker.com/) or reading through man files (`docker build --help`)), we can determine it to perform the following:
+Breaking down the original command (through the [Docker docs](https://docs.docker.com/) or reading through man files `docker build --help`), we can understand the following:
 
   - `docker build [OPTIONS] C:\repos\WebApplication1` - Build an image from a dockerfile
   - `-f c:\...\Dockerfile` - Name of the dockerfile
-  - `-t webapplication1:dev` - Name and optionally a tag in the 'name:tag' format
-  - `--target base` - Set the target build stage to build (in this case to base)
-  - `--label com.microsoft...` - Set metadata for an image
+  - `-t webapplication1:dev` - Name and tag in the 'name:tag' format
+  - `--target base` - Set the target build stage to end at, in this case 'base'
+  - `--label com.microsoft...` - Set metadata for the image
 
 We can then expect the MSBuild command to find the generated Dockerfile, to run through the *base* target, and setup the tags as described. The base target is as follows:
 
@@ -73,11 +73,11 @@ In powershell, we can `docker images ls` to list the newly created image.
 
 ## Docker Build (Production)
 
-When the image is published to a registry, like Dockerhub, it can be performed through Visual Studio. The MSBuild command executes
+Publishing an image to a registry, like Dockerhub, can also be performed through Visual Studio. The MSBuild command executes
 
     docker build -t "webapplication1" -f "Dockerfile" --label "com.microsoft.created-by=visual-studio" ".."
 
-The options used are similar to the developer build, but skips the `--target` option. This flag specifies the target build stage, where any commands after the given target are skipped. Without it, the build command will walk through the entire Dockerfile to generate the image. Looking at the output window, it walks through all stages as we would expect.
+The options used are similar to the developer build, but does not include the `--target` option. This flag specifies the target build stage, where any commands after the given target are skipped. Without it, the build command will walk through the entire Dockerfile to generate the image. Looking at the output window, it walks through all stages as we would expect.
 
 ```
     Step 1/18 : FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1803 AS base
@@ -131,10 +131,11 @@ The options used are similar to the developer build, but skips the `--target` op
     Successfully tagged webapplication1:latest
 ```
 
+Feel free to compare this with the generated Dockerfile - you'll find it walks through all commands and stages.
 
 ## Docker Run (Development)
 
-After building, Visual Studio executes a long `docker run` command.
+After building & running, Visual Studio also executes a long `docker run` command.
 
     docker run -dt -v "C:\Users\<User>\onecoremsvsmon\15.0.28307.271:C:\remote_debugger:ro" -v "C:\repos\WebApplication1\WebApplication1:C:\app" -v "C:\Users\<User>\AppData\Roaming\ASP.NET\Https:C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https:ro" -v "C:\Users\<User>\AppData\Roaming\Microsoft\UserSecrets:C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets:ro" -v "C:\Users\<User>\.nuget\packages\:c:\.nuget\fallbackpackages2" -v "C:\Program Files\dotnet\sdk\NuGetFallbackFolder:c:\.nuget\fallbackpackages" -e "DOTNET_USE_POLLING_FILE_WATCHER=1" -e "ASPNETCORE_ENVIRONMENT=Development" -e "ASPNETCORE_URLS=https://+:443;http://+:80" -e "NUGET_PACKAGES=c:\.nuget\fallbackpackages2" -e "NUGET_FALLBACK_PACKAGES=c:\.nuget\fallbackpackages;c:\.nuget\fallbackpackages2" -p 53989:80 -p 44343:443 --entrypoint C:\remote_debugger\x64\msvsmon.exe webapplication1:dev /noauth /anyuser /silent /nostatus /noclrwarn /nosecuritywarn /nofirewallwarn /nowowwarn /fallbackloadremotemanagedpdbs /timeout:2147483646
 
