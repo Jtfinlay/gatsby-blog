@@ -5,17 +5,17 @@ title: Dockerfile with npm private registry in Azure Dev Ops
 tags: "Docker, Azure, Npm, Registry"
 ---
 
-Whether you have several projects that share a common private module, or you are concerned about supply chain attacks and want to privatize your package sources, it is common to use a private registry. Azure Dev Ops provides its own artifacts to achieve this, but it can be confusing to load from the registry in a Dockerfile.
+Whether you have projects that share a common private module, or are concerned about supply chain attacks and want a private package source, it is common to use a private npm registry. Azure Dev Ops provides its own artifacts to achieve this, but it is not clear how to load from the registry in a Dockerfile.
 
 # Prerequisites
 
-You have an existing feed, have published a package, and have an existing .npmrc file.
+You have an existing feed artifact, have published a private package, and have an existing .npmrc file.
 
 [MSDN docs](https://docs.microsoft.com/en-us/azure/devops/artifacts/get-started-npm?view=azure-devops&tabs=windows)
 
 # Solution
 
-In your existing Dockerfile, ensure you have a `COPY` for your .npmrc file.
+In the existing Dockerfile, add a `COPY` for your .npmrc file.
 
 ```
 FROM mhart/alpine-node:12.16
@@ -33,7 +33,7 @@ EXPOSE 80
 CMD ["yarn", "start"]
 ```
 
-In your `azure-pipelines.yml`, you need to ensure your npmrc file is overriden with the correct access data. This is can be done easily with Azure Dev Ops using the `npm authenticate` task.
+In `azure-pipelines.yml`, we must ensure the .npmrc file contains the correct authentication to connect to the private npm registry. This must be populated during the build and **not checked into the codebase**. This is easy in Azure Dev Ops bu using the `npm authenticate` task before your docker build.
 
 ```
 - task: npmAuthenticate@0
