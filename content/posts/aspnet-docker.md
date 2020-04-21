@@ -6,9 +6,9 @@ draft: false
 slug: "asp-net-core-docker"
 category: "Services"
 tags:
-- "ASP.NET Core"
-- "Docker"
-  description: "Whether starting with a new project or publishing an existing, integrating your ASP.NET Core project with Docker is a powerful way to manage and ship your programs. It's straight forward to achieve with Visual Studio, and this guide is to help add this support."
+  - "ASP.NET Core"
+  - "Docker"
+description: "Whether starting with a new project or publishing an existing, integrating your ASP.NET Core project with Docker is a powerful way to manage and ship your programs. It's straight forward to achieve with Visual Studio, and this guide is to help add this support."
 ---
 
 Whether starting with a new project or publishing an existing, integrating your ASP.NET Core project with Docker is a powerful way to manage and ship your programs. It's straight forward to achieve with Visual Studio, and this guide is to help add this support.
