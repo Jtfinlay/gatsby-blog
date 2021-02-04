@@ -151,6 +151,19 @@ figcaption {
   padding-right: 14px !important;
 }
 
+em {
+    color: #00c14d;
+    font-weight: 600;
+}
+
+strong {
+    color: #ff0abf;
+}
+
+a {
+    font-weight: 600;
+}
+
 @include breakpoint-sm {
   figure.float-left,
   figure.float-right {
