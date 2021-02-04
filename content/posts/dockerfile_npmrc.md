@@ -14,13 +14,13 @@ description: "Whether you have projects that share a common private module, or a
 
 Whether you have projects that share a common private module, or are concerned about supply chain attacks and want a private package source, it is common to use a private npm registry. Azure Dev Ops provides its own artifacts to achieve this, but it is not clear how to load from the registry in a Dockerfile.
 
-# Prerequisites
+## Prerequisites
 
 You have an existing feed artifact, have published a private package, and have an existing .npmrc file.
 
 [MSDN docs](https://docs.microsoft.com/en-us/azure/devops/artifacts/get-started-npm?view=azure-devops&tabs=windows)
 
-# Solution
+## Solution
 
 In the existing Dockerfile, add a `COPY` for your .npmrc file.
 

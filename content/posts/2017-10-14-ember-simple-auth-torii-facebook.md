@@ -19,7 +19,7 @@ Our goal is to have users sign in to our app with their Facebook account, and to
 
 The final code for this guide is available for [fork](https://github.com/Jtfinlay/ember-simple-auth-app).
 
-# Starting off
+## Starting off
 
 Ember-simple-auth and torii are two authentication libraries for Ember that simplify development with different social platforms. Torii is great for easy-to-use providers (such as Facebook, Google, or Github), while ember-simple-auth has better state management. So in this tutorial we will be integrating them both.
 
@@ -65,7 +65,7 @@ First, create an `.env` file at the base of your repo (beside the `app` folder),
 
 Add the `.env` file to your `.gitignore` (or it defeats the entire purpose of this). We are explicitly setting the appId only in the 'development' stage. When you launch to production, you'll have to review how you want to access your keys. This allows us to use different appIds or other properties specific to each stage.
 
-# Routes, controllers, and templates
+## Routes, controllers, and templates
 
 Add some routes and controllers we'll be using.
 
@@ -156,7 +156,7 @@ Now we can go take a look at our ember app. It's not pretty, but it should work.
 
 After sign in, we should be redirected to the '`/`' route, and we should just be seeing the 'Logout' option. You should notice that opening the app in a new tab persists the login state. On clicking the 'Logout' button, the session is invalidated, and we stay on the base route, and can go to `login` and sign in again.
 
-# Ember Inspector
+## Ember Inspector
 
 A great utility to install to help debug is the [Ember Inspector](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi?hl=en) in the Chrome web store. With this installed, we can inspect what we have in the store and containers within our Ember app. For example, when signed in, you can open the Developer Tools with F12, and go to the new 'Ember' tab. Choose 'Container' to see a list of all object instances being maintained.
 
@@ -166,7 +166,7 @@ Next select 'session' > 'main' and you should see properties available in the ri
 
 Go through the explanation above and look for the 'content' property. Expanding this out in the console shows all of the stuff we got back from using the torii provider. We should see fields for `authenticator`, `userId`, `accessToken`, `expiresIn`, and `provider`.
 
-# Authentication mixins
+## Authentication mixins
 
 We have the basics working, now we can play with some ember-simple-auth features, such as using out-of-the-box mixins.
 
@@ -192,7 +192,7 @@ We can also do the opposite so that users, when logged in, are redirected away f
 
 Now, while logged in, if you try to hit the `localhost:4200/login` route directly, you will be redirected to the `index` route.
 
-# Wrapping up
+## Wrapping up
 
 The code is available on [github](https://github.com/Jtfinlay/ember-simple-auth-app).
 

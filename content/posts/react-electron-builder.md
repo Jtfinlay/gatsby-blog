@@ -3,7 +3,7 @@ title: Electron builder from create-react-app
 date: "2019-01-04"
 template: "post"
 draft: false
-slug: "docker-npm-private-registry"
+slug: "react-electron-builder"
 category: "Services"
 tags:
   - "React"
