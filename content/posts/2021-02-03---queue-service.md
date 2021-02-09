@@ -4,9 +4,9 @@ date: "2021-02-03"
 template: "post"
 draft: false
 slug: "building-with-queue"
-category: "Personal"
+category: "Services"
 tags:
-    - "Azure"
+    - "WebDev"
     - "Queue"
     - "Services"
 description: "One of my favourite tools in service development are Queue Services. If I'm designing logic that may run a long time or has a high chance of failure, I'll first look at queues."
